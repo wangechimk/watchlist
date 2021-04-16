@@ -18,7 +18,6 @@ def get_movies(category):
 
     with urllib.request.urlopen(get_movies_url) as url:
         get_movies_data = url.read()
-        print(get_movies_data,"get_movies_data")
         get_movies_response = json.loads(get_movies_data)
 
         movie_results = None
@@ -55,10 +54,11 @@ def process_results(movie_list):
     return movie_results   
 def get_movie(id):
     get_movie_details_url = base_url.format(id,api_key)
-
+    print()
     with urllib.request.urlopen(get_movie_details_url) as url:
         movie_details_data = url.read()
         movie_details_response = json.loads(movie_details_data)
+        # print(movie_details_response.keys(), 'movie_details_response')
 
         movie_object = None
         if movie_details_response:
@@ -70,6 +70,7 @@ def get_movie(id):
             vote_count = movie_details_response.get('vote_count')
 
             movie_object = Movie(id,title,overview,poster,vote_average,vote_count)
+
 
     return movie_object   
 def search_movie(movie_name):

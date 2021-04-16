@@ -4,7 +4,7 @@ from .request import get_movies,get_movie
 from .request import get_movies,search_movie
 from flask import render_template,request,redirect,url_for
 from .forms import ReviewForm
-from .models import review
+from  models import review
 Review = review.Review
 
 # Views
@@ -25,15 +25,15 @@ def index():
     """
     View root page function that returns the index page and its data
     """
-
+  
     # Getting popular movie
     popular_movies = get_movies('popular')
     upcoming_movie = get_movies('upcoming')
     now_showing_movie = get_movies('now_playing')
     title = 'Home - Welcome to The best Movie Review Website Online'
-
+     
     search_movie = request.args.get('movie_query')
-
+   
     if search_movie:
         return redirect(url_for('search',movie_name=search_movie))
     else:
