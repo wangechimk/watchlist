@@ -3,6 +3,15 @@ from . import auth
 from flask_login import login_user
 from ..models import User
 from .forms import LoginForm, RegistrationForm
+from flask_login import login_user, logout_user, login_required
+
+
+# ....
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("main.index"))
 
 
 @auth.route('/login', methods=['GET', 'POST'])
