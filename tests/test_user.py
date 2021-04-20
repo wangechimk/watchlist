@@ -1,5 +1,6 @@
 import unittest
 from app.models import User
+# User = models.User
 
 
 class UserModelTest(unittest.TestCase):
