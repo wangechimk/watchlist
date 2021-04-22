@@ -5,6 +5,7 @@ from ..request import get_movies, get_movie, search_movie
 from .forms import ReviewForm, UpdateProfile
 from ..models import Review, User
 from flask_login import login_required, current_user
+import markdown2
 
 
 # Views
@@ -62,6 +63,15 @@ def search(movie_name):
     searched_movies = search_movie(movie_name_format)
     title = f'search results for {movie_name}'
     return render_template('search.html', movies=searched_movies)
+
+
+@main.route('/review/<int:id>')
+def single_review(id):
+    review = Review.query.get(id)
+    if review is None:
+        abort(404)
+    format_review = markdown2.markdown(review.movie_review, extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('review.html', review=review, format_review=format_review)
 
 
 @main.route('/movie/review/new/<int:id>', methods=['GET', 'POST'])
